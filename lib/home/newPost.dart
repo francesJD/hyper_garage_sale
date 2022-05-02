@@ -1,20 +1,16 @@
-import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:hyper_garage_sale/models/user.dart';
-import 'package:hyper_garage_sale/services/database.dart';
-import 'package:hyper_garage_sale/sources/customerContainer.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:provider/provider.dart';
 
+import '../models/user.dart';
+import '../services/database.dart';
+import '../sources/customerContainer.dart';
+
 class NewPost extends StatefulWidget {
-  // @override
-  // State<StatefulWidget> createState() {
-  //   // TODO: implement createState
-  //   throw UnimplementedError();
-  // }
+  const NewPost({Key? key}) : super(key: key);
 
   @override
   _NewPostState createState() => _NewPostState();
@@ -53,15 +49,15 @@ class _NewPostState extends State<NewPost> {
 
   Widget _titleField() {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
+      margin: const EdgeInsets.symmetric(vertical: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
+          const Text(
             'Title',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           TextFormField(
@@ -69,7 +65,7 @@ class _NewPostState extends State<NewPost> {
             onChanged: (val) {
               setState(() => _currentTitle = val);
             },
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
                 border: InputBorder.none,
                 fillColor: Color(0xfff3f3f4),
                 filled: true),
@@ -81,15 +77,15 @@ class _NewPostState extends State<NewPost> {
 
   Widget _priceField() {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
+      margin: const EdgeInsets.symmetric(vertical: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
+          const Text(
             'Price',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           TextFormField(
@@ -98,7 +94,7 @@ class _NewPostState extends State<NewPost> {
             onChanged: (val) {
               setState(() => _currentPrice = int.parse(val));
             },
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
                 border: InputBorder.none,
                 fillColor: Color(0xfff3f3f4),
                 filled: true),
@@ -110,15 +106,15 @@ class _NewPostState extends State<NewPost> {
 
   Widget _descriptionField() {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
+      margin: const EdgeInsets.symmetric(vertical: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
+          const Text(
             'Description',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           TextFormField(
@@ -127,7 +123,7 @@ class _NewPostState extends State<NewPost> {
             onChanged: (val) {
               setState(() => _currentDescription = val);
             },
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
                 border: InputBorder.none,
                 fillColor: Color(0xfff3f3f4),
                 filled: true),
@@ -165,10 +161,10 @@ class _NewPostState extends State<NewPost> {
   Widget _customButton(String hint) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(vertical: 15),
+      padding: const EdgeInsets.symmetric(vertical: 15),
       alignment: Alignment.center,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(5)),
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
           boxShadow: <BoxShadow>[
             BoxShadow(
                 color: Colors.grey.shade200,
@@ -176,13 +172,13 @@ class _NewPostState extends State<NewPost> {
                 blurRadius: 5,
                 spreadRadius: 2)
           ],
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
               colors: [Colors.orange, Colors.deepOrange])),
       child: Text(
         hint,
-        style: TextStyle(fontSize: 20, color: Colors.white),
+        style: const TextStyle(fontSize: 20, color: Colors.white),
       ),
     );
   }
@@ -194,7 +190,7 @@ class _NewPostState extends State<NewPost> {
           "Added new post successfully! You can return to home page to check it now."),
       duration: Duration(minutes: 2),
     );
-    Scaffold.of(context).showSnackBar(snackBar);
+    //Scaffold.of(context).showSnackBar(snackBar);
   }
 
   Future<void> _getImageList() async {
@@ -212,19 +208,19 @@ class _NewPostState extends State<NewPost> {
   }
 
   Future _postImage(Asset imageFile) async {
-    // print('postImage');
-    // ByteData byteData = await imageFile.getByteData();
-    // List<int> imageData = byteData.buffer.asUint8List();
-    // String fileName = DateTime.now().millisecondsSinceEpoch.toString();
-    // Reference reference = FirebaseStorage.instance.ref().child(fileName);
+    print('postImage');
+    ByteData byteData = await imageFile.getByteData();
+    Uint8List imageData = byteData.buffer.asUint8List();
+    String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+    Reference reference = FirebaseStorage.instance.ref().child(fileName);
     // UploadTask uploadTask =
-    //     reference.putData(imageData); //TODO: 1.continue to modify this
+    //     reference.putData(imageData); //TODO: check if correct
     // TaskSnapshot storageTaskSnapshot = await uploadTask.onComplete;
-    // String imageUrl = await storageTaskSnapshot.ref.getDownloadURL();
-    //
-    // _imageUrls.add(imageUrl.toString());
-  }
+    TaskSnapshot storageTaskSnapshot = await reference.putData(imageData);
+    String imageUrl = await storageTaskSnapshot.ref.getDownloadURL();
 
+    _imageUrls.add(imageUrl.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -251,18 +247,17 @@ class _NewPostState extends State<NewPost> {
                             _priceField(),
                             _descriptionField(),
                             _buildGridView(),
-                            RaisedButton(
-                              color: Colors.white,
-                              elevation: 0.0,
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                  // color: Colors.white;
+                                  ),
                               child: _customButton('Select Photos'),
                               onPressed: () {
                                 _getImageList();
                               },
                             ),
                             SizedBox(height: 20),
-                            RaisedButton(
-                              color: Colors.white,
-                              elevation: 0.0,
+                            ElevatedButton(
                               child: _customButton('Post'),
                               onPressed: () async {
                                 print('post successfully1');
