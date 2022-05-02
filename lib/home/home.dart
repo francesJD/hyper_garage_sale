@@ -29,8 +29,8 @@ class Home extends StatelessWidget {
         // create a floating button to navigate the create new post page
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => NewPost()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const NewPost()));
           },
           icon: Icon(Icons.add),
           label: Text('NEW POST'),
@@ -90,7 +90,7 @@ class Home extends StatelessWidget {
               Positioned(
                   top: 40,
                   right: 0,
-                  child: FlatButton.icon(
+                  child: TextButton.icon(
                     icon: Icon(Icons.account_circle),
                     label: Text(
                       'Log Out',
