@@ -10,14 +10,14 @@ import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:provider/provider.dart';
 
 class NewPost extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    throw UnimplementedError();
-  }
-
   // @override
-  // _NewPostState createState() => _NewPostState();
+  // State<StatefulWidget> createState() {
+  //   // TODO: implement createState
+  //   throw UnimplementedError();
+  // }
+
+  @override
+  _NewPostState createState() => _NewPostState();
 }
 
 class _NewPostState extends State<NewPost> {

@@ -43,12 +43,12 @@ class Home extends StatelessWidget {
   Widget _header(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     return ClipRRect(
-      borderRadius: BorderRadius.only(
+      borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(50), bottomRight: Radius.circular(50)),
       child: Container(
           height: 100,
           width: width,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Colors.orange,
           ),
           child: Stack(
@@ -75,7 +75,7 @@ class Home extends StatelessWidget {
                       width: width,
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: Stack(
-                        children: <Widget>[
+                        children: const <Widget>[
                           Align(
                               alignment: Alignment.center,
                               child: Text(
@@ -92,7 +92,7 @@ class Home extends StatelessWidget {
                   right: 0,
                   child: FlatButton.icon(
                     icon: Icon(Icons.account_circle),
-                    label: Text(
+                    label: const Text(
                       'Log Out',
                       style: TextStyle(
                           color: Colors.white,
