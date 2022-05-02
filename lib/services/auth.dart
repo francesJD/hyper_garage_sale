@@ -4,13 +4,13 @@ import 'package:hyper_garage_sale/models/user.dart';
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  AppUser? _userFromFirebaseUser(User user) {
+  AppUser? _userFromFirebaseUser(User? user) {
     return user != null ? AppUser(uid: user.uid) : null;
   }
 
-  // Stream<User> get user {
-  //   return _auth.onAuthStateChanged.map(_userFromFirebaseUser);
-  // }
+  AppUser? get currentUser {
+    return _userFromFirebaseUser(_auth.currentUser);
+  }
 
   //register with email and password
   Future registerWithEmailAndPassword(String email, String password) async {

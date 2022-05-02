@@ -3,9 +3,9 @@ import 'dart:typed_data';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
-import 'package:provider/provider.dart';
 
 import '../models/user.dart';
+import '../services/auth.dart';
 import '../services/database.dart';
 import '../sources/customerContainer.dart';
 
@@ -25,6 +25,8 @@ class _NewPostState extends State<NewPost> {
   List<String> _imageUrls = <String>[]; //TODO: check if correct
   List<Asset> _images = <Asset>[]; //TODO: check if correct
   bool loading = false;
+  final AuthService _auth = AuthService();
+  late AppUser loggedInUser;
 
   Widget _backButton() {
     return InkWell(
@@ -222,9 +224,22 @@ class _NewPostState extends State<NewPost> {
     _imageUrls.add(imageUrl.toString());
   }
 
+  /// Check to see if there is a current user who is signed in
+  void getCurrentUser() async {
+    try {
+      final user = await _auth.currentUser;
+      if (user != null) {
+        loggedInUser = user;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    AppUser user = Provider.of<AppUser>(context);
+    getCurrentUser();
+
     return Scaffold(
       body: Builder(
         builder: (context) => SingleChildScrollView(
@@ -268,7 +283,7 @@ class _NewPostState extends State<NewPost> {
                                   for (Asset a in _images) {
                                     await _postImage(a);
                                   }
-                                  await DatabaseService(uid: user.uid)
+                                  await DatabaseService(uid: loggedInUser.uid)
                                       .updateUserData(
                                           _currentTitle,
                                           _currentPrice,
