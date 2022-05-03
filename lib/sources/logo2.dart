@@ -21,7 +21,7 @@ class Logo2 extends StatelessWidget {
           // ),
           children: [
             TextSpan(
-              text: 'per',
+              text: 'yper',
               style: TextStyle(color: Colors.black, fontSize: 30),
             ),
             TextSpan(
