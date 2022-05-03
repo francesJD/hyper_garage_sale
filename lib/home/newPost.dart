@@ -170,8 +170,8 @@ class _NewPostState extends State<NewPost> {
           boxShadow: <BoxShadow>[
             BoxShadow(
                 color: Colors.grey.shade200,
-                offset: Offset(2, 4),
-                blurRadius: 5,
+                offset: Offset(0, 4),
+                blurRadius: 10,
                 spreadRadius: 2)
           ],
           gradient: const LinearGradient(
@@ -214,7 +214,8 @@ class _NewPostState extends State<NewPost> {
     ByteData byteData = await imageFile.getByteData();
     Uint8List imageData = byteData.buffer.asUint8List();
     String fileName = DateTime.now().millisecondsSinceEpoch.toString();
-    Reference reference = FirebaseStorage.instance.ref().child(fileName);
+    Reference reference =
+        FirebaseStorage.instance.ref().child('Jingmin/images/$fileName');
     // UploadTask uploadTask =
     //     reference.putData(imageData); //TODO: check if correct
     // TaskSnapshot storageTaskSnapshot = await uploadTask.onComplete;
@@ -263,9 +264,10 @@ class _NewPostState extends State<NewPost> {
                             _descriptionField(),
                             _buildGridView(),
                             ElevatedButton(
-                              style: ButtonStyle(
-                                  // color: Colors.white;
-                                  ),
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.transparent,
+                                shadowColor: Colors.transparent,
+                              ),
                               child: _customButton('Select Photos'),
                               onPressed: () {
                                 _getImageList();
@@ -273,6 +275,10 @@ class _NewPostState extends State<NewPost> {
                             ),
                             SizedBox(height: 20),
                             ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.transparent,
+                                shadowColor: Colors.transparent,
+                              ),
                               child: _customButton('Post'),
                               onPressed: () async {
                                 print('post successfully1');

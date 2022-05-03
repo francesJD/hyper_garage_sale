@@ -4,7 +4,8 @@ import 'package:hyper_garage_sale/home/home.dart';
 import 'package:hyper_garage_sale/services/auth.dart';
 import 'package:hyper_garage_sale/sources/customerContainer.dart';
 import 'package:hyper_garage_sale/sources/loading.dart';
-import 'package:hyper_garage_sale/sources/logo.dart';
+
+import '../sources/logo2.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -179,7 +180,7 @@ class _RegisterState extends State<Register> {
                             child: Column(
                               children: <Widget>[
                                 const SizedBox(height: 40.0),
-                                Logo(), //TODO: change the Logo
+                                Logo2(),
                                 const SizedBox(height: 50.0),
                                 _emailField(),
                                 _passwordField(),
@@ -233,7 +234,7 @@ class _RegisterState extends State<Register> {
                     Positioned(top: 40, left: 0, child: _backButton()),
                     Positioned(
                       top: -MediaQuery.of(context).size.height * .15,
-                      right: -MediaQuery.of(context).size.width * .4,
+                      right: -MediaQuery.of(context).size.width * .6,
                       child: CustomContainer(),
                     ),
                   ],
