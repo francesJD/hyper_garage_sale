@@ -188,11 +188,11 @@ class _NewPostState extends State<NewPost> {
   void _postNewItemSnackBar(BuildContext context) {
     print('postNewItemSnackbar');
     final snackBar = SnackBar(
-      content: new Text(
+      content: Text(
           "Added new post successfully! You can return to home page to check it now."),
       duration: Duration(minutes: 2),
     );
-    //Scaffold.of(context).showSnackBar(snackBar);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   Future<void> _getImageList() async {
