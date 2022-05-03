@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_garage_sale/authenticate/register.dart';
 import 'package:hyper_garage_sale/authenticate/sign_in.dart';
-import 'package:hyper_garage_sale/sources/logo.dart';
+
+import '../sources/logo.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key}) : super(key: key);
